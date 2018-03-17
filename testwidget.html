@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://code.jquery.com/jquery.js"></script>
+
+    <title>Document</title>
+</head>
+<body>
+    <iframe id="spotifywidget" src="https://open.spotify.com/embed?uri=spotify:track:5JunxkcjfCYcY7xJ29tLai"
+        frameborder="0" allow="encrypted-media" allowtransparency="true"></iframe>
+</body>
+
+<script>
+$(document).ready(function(event){
+console.log("doc ready");
+var iframe = $("iframe#document").contents();
+//$('.main').contents();
+//$('.play-button').click();
+iframe.find("#play-button").click();
+});
+</script>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Jam Start!</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Ubuntu" rel="stylesheet">
+
+</head>
+
+<body>
+    <div class="containter text-center">
+        <div class="jumbotron">
+            <h1 class="display-4" id="greeting">Good
+                <span>Morning</span>!</h1>
+            <h1>
+                <span id="time">9:00 AM</span>
+            </h1>
+        </div>
+
+        <div class="container">
+            <h3 id="weather-box">It's
+                <span id="weather-condition">snowy</span> today.</h3>
+            <h1>
+                <span id="temp">25 &#8457;</span>
+            </h1>
+        </div>
+
+        <div class="container">
+            <p>
+                <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false"
+                    aria-controls="collapseExample">
+                    Set Alarm Clock
+                </button>
+            </p>
+            <div class="collapse show" id="collapseExample" style>
+                <div class="card card-body" id="alarm-box">
+                    <form>
+                        <div>
+                            <input id="alarm-time" type="time" name="alarm-time" pattern="[0-9]{2}:[0-9]{2}">
+                            <span class="validity"></span>
+                            <input id="zipcode" type="zipcode" name="zipcode" value="Zipcode">
+        
+                            <button class="btn btn-info" data-target="#collapseExample" data-toggle="collapse">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="container">
+            <h5>It will take <span id="time-to-destination">25 minutes</span> to get to <span id="place-to-be">work</span> today.</h5>
+        </div>
+        <br>
+        <div class="container center">
+            <a href="https://placeholder.com"><img src="http://via.placeholder.com/1000x100"></a>
+        </div>
+    </div>
+</body>
+
+</html>

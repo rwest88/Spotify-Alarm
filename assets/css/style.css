@@ -1,0 +1,41 @@
+body {
+    background: url(../images/snowy.jpg) no-repeat;
+    background-size: cover;
+    background-position: center;
+    font-family: 'Roboto', sans-serif;
+}
+
+.jumbotron {
+    color: black;
+    text-shadow: 0px 2px 10px rgba(0,0,0,0.8);
+    background-color: transparent;
+    font-family: 'Ubuntu', sans-serif;
+    padding-bottom: 30px;
+}
+
+#time {
+    font-size: 150px;
+}
+
+#weather-box {
+    color: black;
+    text-shadow: 0px 2px 10px rgba(0,0,0,0.8);
+    font-size: 50px;
+    font-family: 'Roboto', sans-serif;
+}
+
+#temp {
+    color: black;
+    text-shadow: 0px 2px 10px rgba(0,0,0,0.8);
+}
+
+#alarm-box {
+    background-color: transparent; 
+    border: none;
+}
+
+#greeting {
+    color: black;
+    text-shadow: 0px 2px 10px rgba(0,0,0,0.8);
+    font-size: 55px;
+}

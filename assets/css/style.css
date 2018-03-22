@@ -1,12 +1,12 @@
 body {
-    background: url(../images/snowy.jpg) no-repeat;
+    background: url(../images/sunny.jpg) no-repeat;
     background-size: cover;
     background-position: center;
     font-family: 'Roboto', sans-serif;
 }
 
 .jumbotron {
-    color: black;
+    color: white;
     text-shadow: 0px 2px 10px rgba(0,0,0,0.8);
     background-color: transparent;
     font-family: 'Ubuntu', sans-serif;
@@ -17,25 +17,41 @@ body {
     font-size: 150px;
 }
 
-#weather-box {
-    color: black;
+#weather-container {
+    color: white;
     text-shadow: 0px 2px 10px rgba(0,0,0,0.8);
     font-size: 50px;
     font-family: 'Roboto', sans-serif;
 }
 
-#temp {
-    color: black;
-    text-shadow: 0px 2px 10px rgba(0,0,0,0.8);
-}
-
-#alarm-box {
+#setalarm-form,
+#form-setting {
     background-color: transparent; 
     border: none;
+    margin: auto;
+    text-align: left;
 }
 
-#greeting {
-    color: black;
+#time-greet {
+    color: white;
     text-shadow: 0px 2px 10px rgba(0,0,0,0.8);
     font-size: 55px;
+}
+
+#greet {
+    font-size: 50px;
+}
+
+.traffic-container {
+    color: white;
+    text-shadow: 0px 2px 10px rgba(0,0,0,0.8);
+}
+
+h5 {
+    font-size: 35px;
+}
+
+#info-input {
+    color: white;
+    text-shadow: 0px 2px 10px rgba(0,0,0,0.8);
 }

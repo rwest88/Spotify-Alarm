@@ -3,64 +3,122 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Jam Start!</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l"
+        crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c"
+        crossorigin="anonymous"></script>
     <link rel="stylesheet" href="assets/css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto|Ubuntu" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha18/css/tempusdominus-bootstrap-4.min.css"
+    />
+    <title>JamStart</title>
 </head>
 
 <body>
-    <div class="containter text-center">
+    <div class="container text-center" id="time-greet">
         <div class="jumbotron">
-            <h1 class="display-4" id="greeting">Good
-                <span>Morning</span>!</h1>
+            <h1>
+                <span id="greet">Good Morning!</span>
+            </h1>
             <h1>
                 <span id="time">9:00 AM</span>
             </h1>
         </div>
+    </div>
 
-        <div class="container">
-            <h3 id="weather-box">It's
-                <span id="weather-condition">snowy</span> today.</h3>
+    <div class="container text-center" id="weather-greet">
+        <div id="weather-container">
+            <h2>
+                <span id="condition">It's snowy today.</span>
+            </h2>
             <h1>
-                <span id="temp">25 &#8457;</span>
+                <span id="temp-input">56&#8457;</span>
             </h1>
+            <h2>
+                <span id="condition-icon">Icon</span>
+            </h2>
+        </div>
+    </div>
+
+    <div class="container mb-4 text-center" id="setalarm-form">
+
+        <p>
+            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" id="set-alarm-btn">
+                Set Alarm and Destination
+            </button>
+        </p>
+
+        <div class="collapse" id="collapseExample">
+            <div class="card card-body" id="form-setting">
+
+                <form>
+                    <div class="form-group">
+                        <div class="input-group date" id="datetimepicker3" data-target-input="nearest">
+                            <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker3" />
+                            <div class="input-group-append" data-target="#datetimepicker3" data-toggle="datetimepicker">
+                                <div class="input-group-text">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="zip-input" id="info-input">Enter Zip Code:</label>
+                        <input type="number" class="form-control" id="zip-input" select="required" onfocus="this.value=''" value="Zip Code">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="start-address-input" class="input-style" id="info-input">Starting Address:</label>
+                        <input type="address" class="form-control" id="startaddress-input">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="end-address-input" class="input-style" id="info-input">Ending Address:</label>
+                        <input type="address" class="form-control" id="endaddress-input">
+                    </div>
+
+                    <button class="btn btn-primary btn-block" type="button" data-toggle="collapse" data-target="#collapseExample" id="submit-btn">Submit</button>
+
+                </form>
+            </div>
         </div>
 
-        <div class="container">
-            <p>
-                <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false"
-                    aria-controls="collapseExample">
-                    Set Alarm Clock
-                </button>
-            </p>
-            <div class="collapse show" id="collapseExample" style>
-                <div class="card card-body" id="alarm-box">
-                    <form>
-                        <div>
-                            <input id="alarm-time" type="time" name="alarm-time" pattern="[0-9]{2}:[0-9]{2}">
-                            <span class="validity"></span>
-                            <input id="zipcode" type="zipcode" name="zipcode" value="Zipcode">
-        
-                            <button class="btn btn-info" data-target="#collapseExample" data-toggle="collapse">Submit</button>
-                        </div>
-                    </form>
+    </div>
+
+    <div class="container py-5 mb-4 text-center" id="traffic-time">
+        <div class="traffic-container">
+            <h3>It will take you
+                <span id=" destination-time">15 minutes</span> to get to your destination.
+            </h3>
+            <div class="container py-5 mb-4" ID="music-section">
+                <div class="row music" id="music-icon">
+                    <div class="col-sm-6">
+                        <h1>
+                            <span id="icon-input">
+                                <i class="fas fa-music mr-3"></i>
+                            </span>
+                        </h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <h2>
+                            <span id="music-data"></span>music data
+                        </h2>
+                    </div>
                 </div>
             </div>
         </div>
-        <br>
-        <div class="container">
-            <h5>It will take <span id="time-to-destination">25 minutes</span> to get to <span id="place-to-be">work</span> today.</h5>
-        </div>
-        <br>
-        <div class="container center">
-            <a href="https://placeholder.com"><img src="http://via.placeholder.com/1000x100"></a>
-        </div>
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha18/js/tempusdominus-bootstrap-4.min.js"></script>
+
 </body>
 
 </html>

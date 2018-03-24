@@ -1,5 +1,5 @@
 body {
-    background: url(../images/cloudy.jpg) no-repeat;
+    background: url(../images/nighttime.jpg) no-repeat;
     background-size: cover;
     background-position: center;
     font-family: 'Roboto', sans-serif;
@@ -51,6 +51,14 @@ body {
     margin: 25px 0px 0px -49px;
 }
 
+#alarm-set-msg {
+    text-shadow: none;
+}
+
+#alarm-notset-msg {
+    text-shadow: none;
+}
+
 @media (min-width: 768px) {
     #time {
         font-size: 75px;
@@ -93,8 +101,8 @@ body {
     }
     #weather-icon {
         border-radius: 50%;
-        width: 100px;
-        height: 100px;
+        width: 75px;
+        height: 75px;
     }
     .bootstrap-datetimepicker-widget.dropdown-menu {
         margin: 40px 0px 0px 130px;

@@ -23,11 +23,11 @@
     <div class="container text-center" id="time-greet">
         <div class="jumbotron">
 
-            <span id="greet" class="lead">Good Morning!</span>
+            <span id="greet" class="lead">Good Evening!</span>
 
             <br />
 
-            <span id="time" class="display-4">9:00 AM</span>
+            <span id="time" class="display-4">9:00 PM</span>
 
         </div>
     </div>
@@ -39,12 +39,26 @@
                     <img id="weather-icon" src="http://openweathermap.org/img/w/10d.png">
                 </span>
                 <br>
-                <span id="condition" class="lead"> It's snowy today.</span>
+                <span id="condition" class="lead"> It's sunny out.</span>
             </p>
             <p>
                 <span id="temp-input" class="display-1">56&#8457;</span>
             </p>
         </div>
+    </div>
+
+    <div class="alert alert-success alert-dismissible fade hide" role="alert" id="alarm-set-msg">
+        <strong>Alarm has been set!</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="alert alert-danger alert-dismissible fade hide" role="alert" id="alarm-notset-msg">
+        <strong>Are you sure you want to exit without setting an alarm?</strong>
+        <button type="button" class="close" data-dismiss="alert"
+            aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
     </div>
 
     <div class="container mb-4 text-center" id="setalarm-form">
@@ -60,38 +74,25 @@
             <div class="card card-body" id="form-setting">
 
                 <form>
-                    <div class="form-group text-center">
-                        <label for="alarm-clock" id="info-input">Set Alarm:</label>
+                    <div class="form-group">
+                        <label for="alarm-clock">Set Alarm:</label>
                         <div class="input-group date" id="datetimepicker3" data-target-input="nearest">
-                            <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker3" id="time-field-input" />
-                            <div id="center-clock-icon" class="input-group-append" data-target="#datetimepicker3" data-toggle="datetimepicker">
-                                <svg id="clock-icon" class="svg-inline--fa fa-clock fa-w-16" aria-hidden="true" data-prefix="fas" data-icon="clock" role="img"
-                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="">
-                                    <path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm57.1 350.1L224.9 294c-3.1-2.3-4.9-5.9-4.9-9.7V116c0-6.6 5.4-12 12-12h48c6.6 0 12 5.4 12 12v137.7l63.5 46.2c5.4 3.9 6.5 11.4 2.6 16.8l-28.2 38.8c-3.9 5.3-11.4 6.5-16.8 2.6z"></path>
-                                </svg>
+                            <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker3"/>
+                            <div class="input-group-append" data-target="#datetimepicker3" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="fas fa-clock"></i></div>
                             </div>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="end-address-input" class="input-style" id="info-input">Ending Address:</label>
+                        <label for="end-address-input" class="input-style">Ending Address:</label>
                         <input type="address" class="form-control" id="end-address-input">
                     </div>
                     <br>
+
                     <button class="btn btn-info btn-block" type="button" data-toggle="collapse" data-target="#collapseExample" id="submit-btn">Submit</button>
 
                 </form>
-
-                <!-- <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>Alarm has been set!</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                </div>
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong>Are you sure you want to exit without setting an alarm?</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                </div> -->
 
             </div>
         </div>
@@ -137,6 +138,14 @@
             });
 
         });
+
+         $("#submit-btn").on("click", function () {
+                if(("#end-address-input").val() == " " && ("#time-field-input").val() == " ") {
+                    ("#alarm-notset-msg").show();
+                } else {
+                    ("#alarm-set-msg").show();
+                }
+            });
     </script>
 </body>
 

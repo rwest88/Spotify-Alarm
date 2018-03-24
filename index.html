@@ -53,13 +53,6 @@
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    <div class="alert alert-danger alert-dismissible fade hide" role="alert" id="alarm-notset-msg">
-        <strong>Are you sure you want to exit without setting an alarm?</strong>
-        <button type="button" class="close" data-dismiss="alert"
-            aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
 
     <div class="container mb-4 text-center" id="setalarm-form">
 
@@ -73,11 +66,11 @@
         <div class="collapse" id="collapseExample">
             <div class="card card-body" id="form-setting">
 
-                <form>
+                <form id="alarm-form">
                     <div class="form-group">
                         <label for="alarm-clock">Set Alarm:</label>
                         <div class="input-group date" id="datetimepicker3" data-target-input="nearest">
-                            <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker3"/>
+                            <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker3" required>
                             <div class="input-group-append" data-target="#datetimepicker3" data-toggle="datetimepicker">
                                 <div class="input-group-text"><i class="fas fa-clock"></i></div>
                             </div>
@@ -90,7 +83,7 @@
                     </div>
                     <br>
 
-                    <button class="btn btn-info btn-block" type="button" data-toggle="collapse" data-target="#collapseExample" id="submit-btn">Submit</button>
+                    <button class="btn btn-info btn-block" type="submit" id="submit-btn">Submit</button>
 
                 </form>
 
@@ -132,20 +125,19 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha18/js/tempusdominus-bootstrap-4.min.js"></script>
     <script type="text/javascript">
         $(function () {
+            var $collapsible = $('#collapseExample');
 
             $('#datetimepicker3').datetimepicker({
                 format: 'LT'
             });
-
+            $('#alarm-form').on('submit', function(evt) {
+                evt.preventDefault();
+                $collapsible.collapse('hide');
+                $('#alarm-set-msg').addClass('show');
+            });
         });
 
-         $("#submit-btn").on("click", function () {
-                if(("#end-address-input").val() == " " && ("#time-field-input").val() == " ") {
-                    ("#alarm-notset-msg").show();
-                } else {
-                    ("#alarm-set-msg").show();
-                }
-            });
+        
     </script>
 </body>
 

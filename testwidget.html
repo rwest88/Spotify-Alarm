@@ -1,38 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="https://code.jquery.com/jquery.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_bXSY_7Ssaeg_p4mCtDVFEAn8iCxk1bY"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    
-    <title>jQuery for alarm project</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_bXSY_7Ssaeg_p4mCtDVFEAn8iCxk1bY"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <title>jQuery for alarm project</title>
 </head>
 <body>
        
-    <!--Youtube iframe-->
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-4">
-                <div class="youtube">
-                   
-                </div> 
-    <!--Spotify iframe-->
-                <div class="spotify">
-                    
-                </div>            
-            </div>  
-        </div>    
-    </div>
-    <!--weather icon -->
-    <img id="weather-icon">
+  <!--Youtube iframe-->
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="youtube">
+            
+        </div> 
+        <!--Spotify iframe-->
+        <div class="spotify">
+            
+        </div>            
+      </div>  
+    </div>    
+  </div>
+  <!--weather icon -->
+  <img id="weather-icon">
 
-    </img>
-    <p class="traveltime">
+  </img>
+  <p class="traveltime">
 
-    </p>
+  </p>
 </body>
 
 <script>
@@ -64,88 +63,89 @@ var queryURL1 = "https://api.openweathermap.org/data/2.5/weather?zip=23225&APPID
 var queryURL2 = "http://maps.googleapis.com/maps/api/directions/json?origin=Richmond&destination=Fredericksburg&key=AIzaSyB_bXSY_7Ssaeg_p4mCtDVFEAn8iCxk1bY";
 
 $.ajax({
-        url: queryURL1,
-        method: "GET"
-      }).then(function(response) {
-          console.log(response);
-          var weather = response.weather[0].id;
-          var youTube = $('<iframe width="300" height="100" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>');
-          var spotify = $('<iframe width="300" height="100" frameborder="0" allowtransparency="true" allow="encrypted-media">');
-          var iconImage = $('<img>');
-        if (weather === 500-531) {
-            console.log(weather);
-            youTube.attr("src", rainyMusic);
-            $('.youtube').append(youTube);
-            spotify.attr("src", rainyMusicSpotify);
-            $(".spotify").append(spotify);
-            $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
-        } else if (weather === 800, 801, 951-953) {
-            console.log(weather);
-            youTube.attr("src", sunnyMusic);
-            $('.youtube').append(youTube);
-            spotify.attr("src", sunnyMusicSpotify);
-            $(".spotify").append(spotify);
-            $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
-        } else if (weather === 600-622) {
-            console.log(weather);
-            youTube.attr("src", snowMusic);
-            $('.youtube').append(youTube);
-            spotify.attr("src", snowMusicSpotify);
-            $(".spotify").append(spotify);
-            $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
-        } else if (weather === 300-321) {
-            console.log(weather);
-            youTube.attr("src", drizzleMusic);
-            $('.youtube').append(youTube);
-            spotify.attr("src", drizzleMusicSpotify);
-            $(".spotify").append(spotify);
-            $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
-        } else if (weather === 802-804) {
-            console.log(weather);
-            youTube.attr("src", cloudyMusic);
-            $('.youtube').append(youTube);
-            $(spotify).attr("src", cloudyMusicSpotify);
-            $(".spotify").append(spotify);
-            $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
-        } else if (weather === 701-721, 741) {
-            console.log(weather);
-            youTube.attr("src", atmosMusic);
-            $('.youtube').append(youTube);
-            $(spotify).attr("src", atmosMusicSpotify);
-            $(".spotify").append(spotify);
-            $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
-        } else if (weather === 731, 751-781, 900-902, 906, 957-962) {
-            console.log(weather);
-            youTube.attr("src", extremeMusic);
-            $('.youtube').append(youTube);
-            $(spotify).attr("src", extremeMusicSpotify);
-            $(".spotify").append(spotify);
-            $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
-        } else if (weather === 200-232) {
-            console.log(weather);
-            youTube.attr("src", stormMusic);
-            $('.youtube').append(youTube);
-            $(spotify).attr("src", stormMusicSpotify);
-            $(".spotify").append(spotify);
-            $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
-        }
-      }).then(function(response) {
-        var origin2 = 'Richmond, Virginia';
-        var destinationA = 'Washinton, D.C>';
-        var service = new google.maps.DistanceMatrixService();
-        service.getDistanceMatrix(
+    url: queryURL1,
+    method: "GET"
+  }).then(function(response) {
+    console.log(response);
+    var weather = response.weather[0].id;
+    var youTube = $('<iframe width="300" height="100" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>');
+    var spotify = $('<iframe width="300" height="100" frameborder="0" allowtransparency="true" allow="encrypted-media">');
+    var iconImage = $('<img>');
+
+    if (weather === 500-531) {
+      console.log(weather);
+      youTube.attr("src", rainyMusic);
+      $('.youtube').append(youTube);
+      spotify.attr("src", rainyMusicSpotify);
+      $(".spotify").append(spotify);
+      $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
+    } else if (weather === 800, 801, 951-953) {
+      console.log(weather);
+      youTube.attr("src", sunnyMusic);
+      $('.youtube').append(youTube);
+      spotify.attr("src", sunnyMusicSpotify);
+      $(".spotify").append(spotify);
+      $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
+    } else if (weather === 600-622) {
+      console.log(weather);
+      youTube.attr("src", snowMusic);
+      $('.youtube').append(youTube);
+      spotify.attr("src", snowMusicSpotify);
+      $(".spotify").append(spotify);
+      $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
+    } else if (weather === 300-321) {
+      console.log(weather);
+      youTube.attr("src", drizzleMusic);
+      $('.youtube').append(youTube);
+      spotify.attr("src", drizzleMusicSpotify);
+      $(".spotify").append(spotify);
+      $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
+    } else if (weather === 802-804) {
+      console.log(weather);
+      youTube.attr("src", cloudyMusic);
+      $('.youtube').append(youTube);
+      $(spotify).attr("src", cloudyMusicSpotify);
+      $(".spotify").append(spotify);
+      $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
+    } else if (weather === 701-721, 741) {
+      console.log(weather);
+      youTube.attr("src", atmosMusic);
+      $('.youtube').append(youTube);
+      $(spotify).attr("src", atmosMusicSpotify);
+      $(".spotify").append(spotify);
+      $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
+    } else if (weather === 731, 751-781, 900-902, 906, 957-962) {
+      console.log(weather);
+      youTube.attr("src", extremeMusic);
+      $('.youtube').append(youTube);
+      $(spotify).attr("src", extremeMusicSpotify);
+      $(".spotify").append(spotify);
+      $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
+    } else if (weather === 200-232) {
+      console.log(weather);
+      youTube.attr("src", stormMusic);
+      $('.youtube').append(youTube);
+      $(spotify).attr("src", stormMusicSpotify);
+      $(".spotify").append(spotify);
+      $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
+    }
+  }).then(function(response) {
+    var origin2 = 'Richmond, Virginia';
+    var destinationA = 'Washinton, D.C>';
+    var service = new google.maps.DistanceMatrixService();
+    service.getDistanceMatrix(
   {
     origins: [origin2],
     destinations: [destinationA],
     travelMode: 'DRIVING'
   }, callback);
 
-function callback(response, status) {
-    console.log(response);
-  // See Parsing the Results for
-  // the basics of a callback function.
-}
-      });
+  function callback(response, status) {
+      console.log(response);
+    // See Parsing the Results for
+    // the basics of a callback function.
+  }
+});
       
 </script>
 </html>

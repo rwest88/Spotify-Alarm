@@ -19,6 +19,7 @@ $('#alarm-form').on('submit', function(evt) {
   evt.preventDefault();
   $collapsible.collapse('hide');
   $('#alarm-set-msg').addClass('show');
+  setTimeout($('#alarm-set-msg').removeClass('show'), 5000);
 });
   
 var d = new Date();

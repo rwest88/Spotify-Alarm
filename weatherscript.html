@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1></h1>
+    <img id="weather-icon">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+
+
+//User's (+firebases) variables
+var zip = "23221";
+///////////////////////////////////
+
+var APIKey = "2841c61970b29c0abfe94ff276551c6b";
+
+// Here we are building the URL we need to query the database
+var queryURL = `https://api.openweathermap.org/data/2.5/weather?zip=${zip}&units=imperial&appid=${APIKey}`;
+
+console.log("hi");
+
+// Here we run our AJAX call to the OpenWeatherMap API
+$.ajax({
+    url: queryURL,
+    method: "GET"
+  })
+  // We store all of the retrieved data inside of an object called "response"
+  .then(function(response) {
+
+    // Log the queryURL
+    console.log(queryURL);
+
+    // Log the resulting object
+    console.log(response);
+    console.log(response.weather[0].id);
+    console.log(response.weather[0].icon);
+    $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`)
+
+});
+
+    // <!-- api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=2841c61970b29c0abfe94ff276551c6b -->
+
+
+</script>
+</body>
+</html>

@@ -1,107 +1,116 @@
 body {
-    background: url(../images/cloudy.jpg) no-repeat;
-    background-size: cover;
-    background-position: center;
-    font-family: 'Roboto', sans-serif;
-    text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.8);
-    color: #ffffff;
+  background: url(../images/thunder.jpg) no-repeat;
+  background-size: cover;
+  background-position: center;
+  font-family: 'Roboto', sans-serif;
+  text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.8);
+  color: #ffffff;
 }
 
 .jumbotron {
-    background-color: transparent;
-    font-family: 'Ubuntu', sans-serif;
+  background-color: transparent;
+  font-family: 'Ubuntu', sans-serif;
 }
 
 #setalarm-form,
 #form-setting {
-    background-color: transparent;
-    border: none;
-    margin: auto;
-    text-align: left;
+  background-color: transparent;
+  border: none;
+  margin: auto;
+  text-align: left;
 }
 
 #weather-icon {
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    background: rgba(0, 0, 0, 0.5)
+  border-radius: 15%;
+  width: 50px;
+  height: 50px;
+  background-color: #17a2b8;
+  /* background: rgba(0, 0, 0, 0.7) */
 }
 
 #time-field-input {
-    display: none;
+  display: none;
 }
 
 #clock-icon {
-    background-color: none;
-    border: none;
-    border-radius: none;
-    font-size: 5em;
+  background-color: none;
+  border: none;
+  border-radius: none;
+  font-size: 5em;
 }
 
 #center-clock-icon {
-    margin: 0 auto;
+  margin: 0 auto;
 }
 
 #collapseExample {
-    background: rgba(0, 0, 0, 0.4);
-    border-radius: 8px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 8px;
 }
 
 .bootstrap-datetimepicker-widget.dropdown-menu {
-    margin: 25px 0px 0px -49px;
+  margin: 25px 0px 0px -49px;
+  text-shadow: none;
+}
+
+#alarm-set-msg {
+  text-shadow: none; 
+  background-color: #17a2b8;
+  color: white;
+  margin: 0 19% 2%;
 }
 
 @media (min-width: 768px) {
-    #time {
-        font-size: 75px;
-    }
-    #weather-icon {
-        border-radius: 50%;
-        width: 65px;
-        height: 65px;
-    }
-    .bootstrap-datetimepicker-widget.dropdown-menu {
-        margin: 25px 0px 15px 135px;
-    }
-    #collapseExample {
-        max-width: 50%;
-        margin: 0 auto;
-    }
+  #time {
+    font-size: 75px;
+  }
+  #weather-icon {
+    border-radius: 15%;
+    width: 65px;
+    height: 65px;
+  }
+  .bootstrap-datetimepicker-widget.dropdown-menu {
+    margin: 25px 0px 15px 135px;
+  }
+  #collapseExample {
+    max-width: 50%;
+    margin: 0 auto;
+  }
 } 
 
 @media (min-width: 992px) {
-    #time {
-        font-size: 100px;
-    }
-    #weather-icon {
-        border-radius: 50%;
-        width: 80px;
-        height: 80px;
-    }
-    .bootstrap-datetimepicker-widget.dropdown-menu {
-        margin: 25px 0px 0px 197px;
-    }
-    #collapseExample {
-        max-width: 40%;
-        margin: 0 auto;
-    }
+  #time {
+    font-size: 100px;
+  }
+  #weather-icon {
+    border-radius: 15%;
+    width: 80px;
+    height: 80px;
+  }
+  .bootstrap-datetimepicker-widget.dropdown-menu {
+    margin: 25px 0px 0px 197px;
+  }
+  #collapseExample {
+    max-width: 40%;
+    margin: 0 auto;
+  }
 }
 
 @media (min-width: 1200px) {
-    #time {
-        font-size: 100px;
-    }
-    #weather-icon {
-        border-radius: 50%;
-        width: 100px;
-        height: 100px;
-    }
-    .bootstrap-datetimepicker-widget.dropdown-menu {
-        margin: 40px 0px 0px 130px;
-    }
-    #collapseExample {
-        max-width: 30%;
-        margin: 0 auto;
-    }
+  #time {
+    font-size: 100px;
+  }
+  #weather-icon {
+    border-radius: 15%;
+    width: 75px;
+    height: 75px;
+  }
+  .bootstrap-datetimepicker-widget.dropdown-menu {
+    margin: 40px 0px 0px 130px;
+  }
+  #collapseExample {
+    max-width: 30%;
+    margin: 0 auto;
+  }
 }
 

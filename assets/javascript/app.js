@@ -1,4 +1,7 @@
+//..............................................................................
 // Initialize Firebase
+//..............................................................................
+
 var config = {
   apiKey: "AIzaSyChvFGY3IOW8HQf30alGRKO6_Psp2Un7cs",
   authDomain: "spotify-alarm-1521758993850.firebaseapp.com",
@@ -10,18 +13,34 @@ var config = {
 
 firebase.initializeApp(config);
 
+//..............................................................................
+// Global Variables
+//..............................................................................
+
+var database = firebase.database();
+
+var playing = false;
+var autoplay = "";
+
+var greeting;
 var greetings = [
   "Good Morning!",
   "Good Afternoon Sir!",
   "Good Evening!",
   "What are you doing up so late?!"
 ]
-var greeting;
 
-var intervalID = setInterval(updateTime, 1000);
-updateTime();
+var alarmTime;
+var alarmHours;
+var alarmMinutes;
+var alarmAMPM;
 
-var playing = false;
+var intervalSeconds = setInterval(updateTime, 1000);
+var intervalTenMinutes = setInterval(updateWeather, 600000);
+
+//...............................................................................
+// Functions to run at regular intervals
+//...............................................................................
 
 function updateTime() {
   var d = new Date();
@@ -34,19 +53,6 @@ function updateTime() {
   if (timeHours > 11 && timeHours < 19) {greeting = greetings[1]}
   if (timeHours > 18 && timeHours <= 24) {greeting = greetings[2]}
   if (timeHours >= 0 && timeHours < 4) {greeting = greetings[3]}
-
-  // if (timeHours > 12) {
-  //   hoursStandard = timeHours - 12;
-  //   var AMorPM = "PM";
-  // } else if (timeHours == 12 ) {
-  //   hoursStandard = 12;
-  //   AMorPM = "PM";
-  // } else {
-  //   hoursStandard = timeHours;
-  //   AMorPM = "AM"
-  // }
-  // if (timeHours == 0) (hoursStandard = 12)
-  // if (timeHours == 24) {hoursStandard = 12; AMorPM = "AM"}
 
   if (timeHours > 11) {
     AMorPM = "PM";
@@ -61,40 +67,36 @@ function updateTime() {
   $('#time').text(`${timeHours}:${timeMinutes} ${AMorPM}`);
   $('#greet').text(greeting);
 
-
-
   if (alarmHours == timeHours && alarmMinutes == timeMinutes && alarmAMPM == AMorPM) {
     if (!playing) {
-      console.log("play song");
+      autoplay = "?autoplay=1";
       playing = true;
+      runAPIs();
     }
   }
-
-
-
-
-
-
-
-
-
-
 }
 
-// $('#submit-btn').on('click', function () {
-//   if ()
-// });
+function updateWeather() {
+  runAPIs();
+}
+
+//...........................................................
+// Database Query
+//...........................................................
+
+database.ref().on('value', function(snapshot) {
+  $('.datetimepicker-input').attr('placeholder', snapshot.val());
+});
+
+//...........................................................
+// Submit handler (and collapse)
+//...........................................................
 
 var $collapsible = $('#collapseExample');
 
 $('#datetimepicker3').datetimepicker({
   format: 'LT'
 });
-
-var alarmTime;
-var alarmHours;
-var alarmMinutes;
-var alarmAMPM;
 
 $('#alarm-form').on('submit', function(evt) {
   evt.preventDefault();
@@ -103,161 +105,206 @@ $('#alarm-form').on('submit', function(evt) {
   setTimeout(function() {$('#alarm-set-msg').removeClass('show')}, 3000);
   alarmTime = ($('.datetimepicker-input').val());
   if (alarmTime.charAt(1) == ":") {
-    alarmTime = "0" + alarmTime;
+    var formattedAlarmTime = "0" + alarmTime;
   }
-  alarmHours = alarmTime.slice(0, 2);
-  alarmMinutes = alarmTime.slice(3, 5);
-  alarmAMPM = alarmTime.slice(6, 8);
-  console.log(alarmHours);
-
+  alarmHours = formattedAlarmTime.slice(0, 2);
+  alarmMinutes = formattedAlarmTime.slice(3, 5);
+  alarmAMPM = formattedAlarmTime.slice(6, 8);
+  database.ref().set(alarmTime);
 });
 
-$(document).ready(function() {
-  console.log("are u alive");
+//...........................................................
+// API calls (conditionals for weather, music, and traffic)
+//...........................................................
 
-//Youtube links
-var sunnyMusic = "https://www.youtube.com/embed/mxL2C3iejCw?autoplay=1";
-var rainyMusic = "https://www.youtube.com/embed/6Gkdf0IIUNY?autoplay=1";
-var snowMusic = "https://www.youtube.com/embed/geCNx65eFzE?autoplay=1";
-var drizzleMusic = "https://www.youtube.com/embed/63JD_AY2bfc?autoplay=1";
-var cloudyMusic = "https://www.youtube.com/embed/qnrs4e9AcYk?autoplay=1";
-var atmosMusic = "https://www.youtube.com/embed/U-jxcH42lIo?autoplay=1";
-var extremeMusic = "https://www.youtube.com/embed/2LHwEFMVeyU?autoplay=1";
-var stormMusic = "https://www.youtube.com/embed/iHwTFPFu94E?autoplay=1";
+function runAPIs() {
+  //Youtube links
+  var sunnyMusic = "https://www.youtube.com/embed/mxL2C3iejCw" + autoplay;
+  var rainyMusic = "https://www.youtube.com/embed/6Gkdf0IIUNY" + autoplay;
+  var snowMusic = "https://www.youtube.com/embed/geCNx65eFzE" + autoplay;
+  var drizzleMusic = "https://www.youtube.com/embed/63JD_AY2bfc" + autoplay;
+  var cloudyMusic = "https://www.youtube.com/embed/qnrs4e9AcYk" + autoplay;
+  var atmosMusic = "https://www.youtube.com/embed/U-jxcH42lIo" + autoplay;
+  var extremeMusic = "https://www.youtube.com/embed/2LHwEFMVeyU" + autoplay;
+  var stormMusic = "https://www.youtube.com/embed/iHwTFPFu94E" + autoplay;
 
-//Spotify
-var sunnyMusicSpotify = "https://open.spotify.com/embed?uri=spotify:user:spotify:playlist:37i9dQZF1DX6ALfRKlHn1t";
-var rainyMusicSpotify = "https://open.spotify.com/embed?uri=spotify:user:spotify:playlist:37i9dQZF1DXbvABJXBIyiY";
-var snowMusicSpotify = "https://open.spotify.com/embed?uri=spotify:user:spotify:playlist:37i9dQZF1DWUNIrSzKgQbP";
-var drizzleMusicSpotify = "https://open.spotify.com/embed?uri=spotify:user:spotify:playlist:37i9dQZF1DWZ7mSWCFIT7v";
-var cloudyMusicSpotify = "https://open.spotify.com/embed?uri=spotify:user:spotify:playlist:37i9dQZF1DWVV27DiNWxkR";
-var atmosMusicSpotify = "https://open.spotify.com/embed?uri=spotify:user:spotify:playlist:37i9dQZF1DX79Y9Kr2M2tM";
-var extremeMusic = "https://open.spotify.com/embed?uri=spotify:user:spotify:playlist:37i9dQZF1DWU6kYEHaDaGA";
-var stormMusicSpotify = "https://open.spotify.com/embed?uri=spotify:user:spotify:playlist:37i9dQZF1DX2pSTOxoPbx9";
-var pos;
-var queryURL2;
-var queryURL1;
+  //Spotify
+  var sunnyMusicSpotify = "https://open.spotify.com/embed?uri=spotify:user:spotify:playlist:37i9dQZF1DX6ALfRKlHn1t";
+  var rainyMusicSpotify = "https://open.spotify.com/embed?uri=spotify:user:spotify:playlist:37i9dQZF1DXbvABJXBIyiY";
+  var snowMusicSpotify = "https://open.spotify.com/embed?uri=spotify:user:spotify:playlist:37i9dQZF1DWUNIrSzKgQbP";
+  var drizzleMusicSpotify = "https://open.spotify.com/embed?uri=spotify:user:spotify:playlist:37i9dQZF1DWZ7mSWCFIT7v";
+  var cloudyMusicSpotify = "https://open.spotify.com/embed?uri=spotify:user:spotify:playlist:37i9dQZF1DWVV27DiNWxkR";
+  var atmosMusicSpotify = "https://open.spotify.com/embed?uri=spotify:user:spotify:playlist:37i9dQZF1DX79Y9Kr2M2tM";
+  var extremeMusic = "https://open.spotify.com/embed?uri=spotify:user:spotify:playlist:37i9dQZF1DWU6kYEHaDaGA";
+  var stormMusicSpotify = "https://open.spotify.com/embed?uri=spotify:user:spotify:playlist:37i9dQZF1DX2pSTOxoPbx9";
+  var pos;
+  var queryURL1;
+  var queryURL2;
 
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos = {
+        lat: Math.round(position.coords.latitude * 1000000) / 1000000,
+        lng: Math.round(position.coords.longitude * 1000000) / 1000000
+      };
+      console.log(pos);
+      queryURL1 = "https://api.openweathermap.org/data/2.5/weather?lat=" + pos.lat + "&lon=" + pos.lng +"&APPID=a6bed6fbc83844c9e82000992fae233d";
+      console.log(queryURL1);
+      queryURL2 = "https://maps.googleapis.com/maps/api/directions/json?origin=Fredericksburg&destination=Richmond&key=AIzaSyB_bXSY_7Ssaeg_p4mCtDVFEAn8iCxk1bY";
+      var destinationA = 'Washington, D.C';
+      var service = new google.maps.DistanceMatrixService();
 
-if (navigator.geolocation) {
-  navigator.geolocation.getCurrentPosition(function(position) {
-    var pos = {
-      lat: Math.round(position.coords.latitude * 1000000) / 1000000,
-      lng: Math.round(position.coords.longitude * 1000000) / 1000000
-    };
-    console.log(pos);
-    queryURL1 = "https://api.openweathermap.org/data/2.5/weather?lat=" + pos.lat + "&lon=" + pos.lng +"&APPID=a6bed6fbc83844c9e82000992fae233d";
-    console.log(queryURL1);
-    queryURL2 = "https://maps.googleapis.com/maps/api/directions/json?origin=Fredericksburg&destination=Richmond&key=AIzaSyB_bXSY_7Ssaeg_p4mCtDVFEAn8iCxk1bY";
-    var destinationA = 'Washington, D.C';
-    var service = new google.maps.DistanceMatrixService();
-
-    $.ajax({
-      url: queryURL1,
-      method: "GET"
-    }).then(function(response) {
+      $.ajax({
+        url: queryURL1,
+        method: "GET"
+      }).then(function(response) {
         console.log(response);
         var weather = response.weather[0].id;
         var youTube = $('<iframe width="300" height="100" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>');
         var spotify = $('<iframe width="300" height="100" frameborder="0" allowtransparency="true" allow="encrypted-media">');
-        var iconImage = $('<img>');
-      if (weather >= 500 && weather <= 531) {
+        if (weather >= 500 && weather <= 531) {
           console.log(weather);
-          $(youTube).attr("src", rainyMusic);
+          youTube.attr("src", rainyMusic);
           $('#youtube-widget').append(youTube);
-          $(spotify).attr("src", rainyMusicSpotify);
+          spotify.attr("src", rainyMusicSpotify);
           $('#spotify-widget').append(spotify);
           $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
-          $(document).css('background-image', 'url(../images/rainy.jpg)');
-      } else if (weather === 800 || weather === 801 || (weather >= 951 && weather <= 953)) {
-          console.log(weather);
-          $(youTube).attr("src", sunnyMusic);
-          $('#youtube-widget').append(youTube);
-          $(spotify).attr("src", sunnyMusicSpotify);
-          $('#spotify-widget').append(spotify);
-          $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
-          $(document).css('background-image', 'url(../images/sunny.jpg)');
-      } else if (weather >= 600 && weather <= 622) {
-          console.log(weather);
-          $(youTube).attr("src", snowMusic);
-          $('#youtube-widget').append(youTube);
-          $(spotify).attr("src", snowMusicSpotify);
-          $('#spotify-widget').append(spotify);
-          $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
-          $(document).css('background-image', 'url(../images/snowy.jpg)');
-      } else if (weather >= 300 && weather <= 321) {
-          console.log(weather);
-          $(youTube).attr("src", drizzleMusic);
-          $('#youtube-widget').append(youTube);
-          $(spotify).attr("src", drizzleMusicSpotify);
-          $('#spotify-widget').append(spotify);
-          $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
-          $(document).css('background-image', 'url(../images/rainy.jpg)');
-      } else if (weather >= 802 && weather <= 804) {
-          console.log(weather);
-          $(youTube).attr("src", cloudyMusic);
-          $('#youtube-widget').append(youTube);
-          $(spotify).attr("src", cloudyMusicSpotify);
-          $('#spotify-widget').append(spotify);
-          $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
-          $(document).css('background-image', 'url(../images/cloudy.jpg)');
-      } else if ((weather >= 701 && weather <= 721) || weather === 741) {
-          console.log(weather);
-          $(youTube).attr("src", atmosMusic);
-          $('#youtube-widget').append(youTube);
-          $(spotify).attr("src", atmosMusicSpotify);
-          $('#spotify-widget').append(spotify);
-          $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
-          $(document).css('background-image', 'url(../images/cloudy.jpg)');
-      } else if (weather === 731 || (weather >= 751 && weather <= 781) || (weather >= 900 && weather <= 902) || weather === 906 || (weather >= 957 && weather <= 962)) {
-          console.log(weather);
-          $(youTube).attr("src", extremeMusic);
-          $('#youtube-widget').append(youTube);
-          $(spotify).attr("src", extremeMusicSpotify);
-          $('#spotify-widget').append(spotify);
-          $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
-          $(document).css('background-image', 'url(../images/thunder.jpg)');
-      } else if (weather >= 200 && weather <= 232) {
-          console.log(weather);
-          $(youTube).attr("src", stormMusic);
-          $('#youtube-widget').append(youTube);
-          $(spotify).attr("src", stormMusicSpotify);
-          $('#spotify-widget').append(spotify);
-          $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
-          $(document).css('background-image', 'url(../images/thunder.jpg)');
-      }
-  });
-    service.getDistanceMatrix(
-{
-origins: [{lat: pos.lat, lng: pos.lng}],
-destinations: [destinationA],
-travelMode: 'DRIVING'/*,
-drivingOptions: {
-    departureTime: new Date(Date.now()),
-    trafficModel: 'pessimistic'
-}*/
-}, callback);
+          
+          $(document).css('background-image', 'url(../images/rainy.jpg)');   //this needs fixing
 
-function callback(response, status) {
-console.log(response);
-if (status == 'OK') {
-    var origins = response.originAddresses;
-    var destinations = response.destinationAddresses;
+        } else if (weather === 800 || weather === 801 || (weather >= 951 && weather <= 953)) {
+          console.log(weather);
+          youTube.attr("src", sunnyMusic);
+          $('#youtube-widget').append(youTube);
+          spotify.attr("src", sunnyMusicSpotify);
+          $('#spotify-widget').append(spotify);
+          $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
+          
+          $(document).css('background-image', 'url(../images/sunny.jpg)');   //this needs fixing
 
-    for (var i = 0; i < origins.length; i++) {
-      var results = response.rows[i].elements;
-      console.log(results);
-      for (var j = 0; j < results.length; j++) {
-        var element = results[j];
-        var distance = element.distance.text;
-        var duration = element.duration.text;
-        var from = origins[i];
-        var to = destinations[j];
+        } else if (weather >= 600 && weather <= 622) {
+          console.log(weather);
+          youTube.attr("src", snowMusic);
+          $('#youtube-widget').append(youTube);
+          spotify.attr("src", snowMusicSpotify);
+          $('#spotify-widget').append(spotify);
+          $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
+          
+          $(document).css('background-image', 'url(../images/snowy.jpg)');   //this needs fixing
+
+        } else if (weather >= 300 && weather <= 321) {
+          console.log(weather);
+          youTube.attr("src", drizzleMusic);
+          $('#youtube-widget').append(youTube);
+          spotify.attr("src", drizzleMusicSpotify);
+          $('#spotify-widget').append(spotify);
+          $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
+          
+          $(document).css('background-image', 'url(../images/rainy.jpg)');   //this needs fixing
+
+        } else if (weather >= 802 && weather <= 804) {
+          console.log(weather);
+          youTube.attr("src", cloudyMusic);
+          $('#youtube-widget').append(youTube);
+          spotify.attr("src", cloudyMusicSpotify);
+          $('#spotify-widget').append(spotify);
+          $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
+          
+          $(document).css('background-image', 'url(../images/cloudy.jpg)');   //this needs fixing
+
+        } else if ((weather >= 701 && weather <= 721) || weather === 741) {
+          console.log(weather);
+          youTube.attr("src", atmosMusic);
+          $('#youtube-widget').append(youTube);
+          spotify.attr("src", atmosMusicSpotify);
+          $('#spotify-widget').append(spotify);
+          $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
+          
+          $(document).css('background-image', 'url(../images/cloudy.jpg)');   //this needs fixing
+
+        } else if (weather === 731 || (weather >= 751 && weather <= 781) || (weather >= 900 && weather <= 902) || weather === 906 || (weather >= 957 && weather <= 962)) {
+          console.log(weather);
+          youTube.attr("src", extremeMusic);
+          $('#youtube-widget').append(youTube);
+          spotify.attr("src", extremeMusicSpotify);
+          $('#spotify-widget').append(spotify);
+          $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
+          
+          $(document).css('background-image', 'url(../images/thunder.jpg)');   //this needs fixing
+
+        } else if (weather >= 200 && weather <= 232) {
+          console.log(weather);
+          youTube.attr("src", stormMusic);
+          $('#youtube-widget').append(youTube);
+          spotify.attr("src", stormMusicSpotify);
+          $('#spotify-widget').append(spotify);
+          $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
+          
+          $(document).css('background-image', 'url(../images/thunder.jpg)');   //this needs fixing
+
+        }
+      });
+
+      service.getDistanceMatrix({
+        origins: [{lat: pos.lat, lng: pos.lng}],
+        destinations: [destinationA],
+        travelMode: 'DRIVING'/*,
+        drivingOptions: {
+            departureTime: new Date(Date.now()),
+            trafficModel: 'pessimistic'
+        }*/
+      }, callback);
+
+      function callback(response, status) {
+        console.log(response);
+        if (status == 'OK') {
+          var origins = response.originAddresses;
+          var destinations = response.destinationAddresses;
+
+          for (var i = 0; i < origins.length; i++) {
+            var results = response.rows[i].elements;
+            console.log(results);
+            for (var j = 0; j < results.length; j++) {
+              var element = results[j];
+              var distance = element.distance.text;
+              var duration = element.duration.text;
+              var from = origins[i];
+              var to = destinations[j];
+            }
+          }
+        }
       }
-    }
+    });
   }
 }
 
-  });
-}
-});
+updateTime();
+updateWeather();
+
+//..................................................................
+// Needs work:
+//
+// background image should update (in function runAPIs()) **
+// black background (or something) at page load (because the APIs take time)
+// ^^ maybe we want to run just the necessary weather AJAX to speed that up
+//
+// travel time text area should be blank at startup
+// temperature text field should update
+// pull data from destination address form field **
+// feed address into Google distance matrix API **
+// do we want to use traffic-model: pessimistic?
+// favicon would be nice
+// 
+// 
+//..................................................................
+
+//..................................................................
+// Future development:
+//
+// Either use local storage OR store individual user data in Firebase
+// User chooses songs and playlists
+// Real-time traffic detection for accurate travel time
+// Alerts (you should leave in ten minutes, five minutes, etc..) and/or option for alarm to set itself earlier to adjust for traffic conditions
+//
+//
+//..................................................................

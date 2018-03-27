@@ -156,7 +156,7 @@ if (navigator.geolocation) {
       var rainyMusic = "https://www.youtube.com/embed/6Gkdf0IIUNY" + autoplay;
       var snowMusic = "https://www.youtube.com/embed/geCNx65eFzE" + autoplay;
       var drizzleMusic = "https://www.youtube.com/embed/63JD_AY2bfc" + autoplay;
-      var cloudyMusic = "https://www.youtube.com/embed/HLyDNeNai6A" + autoplay;
+      var cloudyMusic = "https://www.youtube.com/embed/Eo4hlkpoU5E" + autoplay;
       var atmosMusic = "https://www.youtube.com/embed/U-jxcH42lIo" + autoplay;
       var extremeMusic = "https://www.youtube.com/embed/2LHwEFMVeyU" + autoplay;
       var stormMusic = "https://www.youtube.com/embed/iHwTFPFu94E" + autoplay;

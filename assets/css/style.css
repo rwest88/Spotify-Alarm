@@ -5,6 +5,7 @@ body {
   text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.8);
   color: #ffffff;
   background-color: black;
+  background-repeat: no-repeat;
 }
 
 iframe {

@@ -37,6 +37,7 @@ var alarmTime;
 var alarmHours;
 var alarmMinutes;
 var alarmAMPM;
+var timeHours;
 
 var intervalSeconds = setInterval(updateTime, 1000);
 var intervalTenMinutes = setInterval(updateWeather, 15000); //600000
@@ -47,7 +48,7 @@ var intervalTenMinutes = setInterval(updateWeather, 15000); //600000
 
 function updateTime() {
   var d = new Date();
-  var timeHours = d.getHours();
+  timeHours = d.getHours();
   var timeMinutes = d.getMinutes();
   if (timeMinutes < 10) {timeMinutes = "0" + timeMinutes}
   var AMorPM = "AM"
@@ -95,7 +96,7 @@ function updateWeather() {
         url: queryURL1,
         method: "GET"
       }).then(function(response) {
-        $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
+        $('#weather-icon').attr('src', `https://openweathermap.org/img/w/${response.weather[0].icon}.png`);
         $('#temp-input').html(Math.round(response.main.temp) + '&#8457');
         $('#condition').text('Condition: ' + response.weather[0].description);
         console.log(response.main.temp);
@@ -189,58 +190,65 @@ function runAPIs() {
           console.log(weather);
           youTube.attr("src", rainyMusic);
           spotify.attr("src", rainyMusicSpotify);
-          $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
-          $('body').css({'background-image':'url(assets/images/rainy.jpg)'});
+          if (timeHours >= 20 || timeHours <= 7) {
+            $('body').css({'background-image':'url(assets/images/nighttime.jpg'});
+          } else {$('body').css({'background-image':'url(assets/images/rainy.jpg)'});}
 
         } else if (weather === 800 || weather === 801 || (weather >= 951 && weather <= 953)) {
           console.log(weather);
           youTube.attr("src", sunnyMusic);
           spotify.attr("src", sunnyMusicSpotify);
-          $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
-          $('body').css({'background-image':'url(assets/images/sunny.jpg)'});
+          if (timeHours >= 20 || timeHours <= 7) {
+            $('body').css({'background-image':'url(assets/images/nighttime.jpg'});
+          } else {$('body').css({'background-image':'url(assets/images/sunny.jpg)'});}
 
         } else if (weather >= 600 && weather <= 622) {
           console.log(weather);
           youTube.attr("src", snowMusic);
           spotify.attr("src", snowMusicSpotify);
-          $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
-          $('body').css({'background-image':'url(assets/images/snowy.jpg)'});
+          if (timeHours >= 20 || timeHours <= 7) {
+            $('body').css({'background-image':'url(assets/images/nighttime.jpg'});
+          } else {$('body').css({'background-image':'url(assets/images/snowy.jpg)'});}
 
         } else if (weather >= 300 && weather <= 321) {
           console.log(weather);
           youTube.attr("src", drizzleMusic);
           spotify.attr("src", drizzleMusicSpotify);
-          $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
-          $('body').css({'background-image':'url(assets/images/rainy.jpg)'});
+          if (timeHours >= 20 || timeHours <= 7) {
+            $('body').css({'background-image':'url(assets/images/nighttime.jpg'});
+          } else {$('body').css({'background-image':'url(assets/images/rainy.jpg)'});}
 
         } else if (weather >= 802 && weather <= 804) {
           console.log(weather);
           youTube.attr("src", cloudyMusic);
           spotify.attr("src", cloudyMusicSpotify);
-          $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
-          $('body').css({'background-image':'url(assets/images/cloudy.jpg)'});
+          if (timeHours >= 20 || timeHours <= 7) {
+            $('body').css({'background-image':'url(assets/images/nighttime.jpg'});
+          } else {$('body').css({'background-image':'url(assets/images/cloudy.jpg)'});}
 
         } else if ((weather >= 701 && weather <= 721) || weather === 741) {
           console.log(weather);
           youTube.attr("src", atmosMusic);
           spotify.attr("src", atmosMusicSpotify);
-          $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
-          
-          $('body').css({'background-image':'url(assets/images/cloudy.jpg)'});
+          if (timeHours >= 20 || timeHours <= 7) {
+            $('body').css({'background-image':'url(assets/images/nighttime.jpg'});
+          } else {$('body').css({'background-image':'url(assets/images/cloudy.jpg)'});}
 
         } else if (weather === 731 || (weather >= 751 && weather <= 781) || (weather >= 900 && weather <= 902) || weather === 906 || (weather >= 957 && weather <= 962)) {
           console.log(weather);
           youTube.attr("src", extremeMusic);
           spotify.attr("src", extremeMusicSpotify);
-          $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
-          $('body').css({'background-image':'url(assets/images/thunder.jpg)'});
+          if (timeHours >= 20 || timeHours <= 7) {
+            $('body').css({'background-image':'url(assets/images/nighttime.jpg'});
+          } else {$('body').css({'background-image':'url(assets/images/thunder.jpg)'});}
 
         } else if (weather >= 200 && weather <= 232) {
           console.log(weather);
           youTube.attr("src", stormMusic);
           spotify.attr("src", stormMusicSpotify);
-          $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
-          $('body').css({'background-image':'url(assets/images/thunder.jpg)'});
+          if (timeHours >= 20 || timeHours <= 7) {
+            $('body').css({'background-image':'url(assets/images/nighttime.jpg'});
+          } else {$('body').css({'background-image':'url(assets/images/thunder.jpg)'});}
 
         }
         $('#youtube-widget').empty().append(youTube);

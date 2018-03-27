@@ -45,7 +45,7 @@ if (navigator.geolocation) {
     var greeting;
     var greetings = [
       "Good Morning!",
-      "Good Afternoon Sir!",
+      "Good Afternoon!",
       "Good Evening!",
       "What are you doing up so late?!"
     ]

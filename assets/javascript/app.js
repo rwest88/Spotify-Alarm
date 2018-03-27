@@ -19,6 +19,9 @@ firebase.initializeApp(config);
 
 var database = firebase.database();
 
+var youTube;
+var spotify;
+
 var playing = false;
 var autoplay = "";
 
@@ -162,87 +165,68 @@ function runAPIs() {
         var weather = response.weather[0].id;
         var youTube = $('<iframe width="300" height="100" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>');
         var spotify = $('<iframe width="300" height="100" frameborder="0" allowtransparency="true" allow="encrypted-media">');
+        
         if (weather >= 500 && weather <= 531) {
           console.log(weather);
           youTube.attr("src", rainyMusic);
-          $('#youtube-widget').append(youTube);
           spotify.attr("src", rainyMusicSpotify);
-          $('#spotify-widget').append(spotify);
           $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
-          
-          $('body').css({'background-image':'url(assets/images/rainy.jpg)'});   //this needs fixing
+          $('body').css({'background-image':'url(assets/images/rainy.jpg)'});
 
         } else if (weather === 800 || weather === 801 || (weather >= 951 && weather <= 953)) {
           console.log(weather);
           youTube.attr("src", sunnyMusic);
-          $('#youtube-widget').append(youTube);
           spotify.attr("src", sunnyMusicSpotify);
-          $('#spotify-widget').append(spotify);
           $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
-          
-          $('body').css({'background-image':'url(assets/images/sunny.jpg)'});   //this needs fixing
+          $('body').css({'background-image':'url(assets/images/sunny.jpg)'});
 
         } else if (weather >= 600 && weather <= 622) {
           console.log(weather);
           youTube.attr("src", snowMusic);
-          $('#youtube-widget').append(youTube);
           spotify.attr("src", snowMusicSpotify);
-          $('#spotify-widget').append(spotify);
           $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
-          
-          $('body').css({'background-image':'url(assets/images/snowy.jpg)'});   //this needs fixing
+          $('body').css({'background-image':'url(assets/images/snowy.jpg)'});
 
         } else if (weather >= 300 && weather <= 321) {
           console.log(weather);
           youTube.attr("src", drizzleMusic);
-          $('#youtube-widget').append(youTube);
           spotify.attr("src", drizzleMusicSpotify);
-          $('#spotify-widget').append(spotify);
           $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
-          
-          $('body').css({'background-image':'url(assets/images/rainy.jpg)'});   //this needs fixing
+          $('body').css({'background-image':'url(assets/images/rainy.jpg)'});
 
         } else if (weather >= 802 && weather <= 804) {
           console.log(weather);
           youTube.attr("src", cloudyMusic);
-          $('#youtube-widget').append(youTube);
           spotify.attr("src", cloudyMusicSpotify);
-          $('#spotify-widget').append(spotify);
           $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
-          
-          $('body').css({'background-image':'url(assets/images/cloudy.jpg)'});   //this needs fixing
+          $('body').css({'background-image':'url(assets/images/cloudy.jpg)'});
 
         } else if ((weather >= 701 && weather <= 721) || weather === 741) {
           console.log(weather);
           youTube.attr("src", atmosMusic);
-          $('#youtube-widget').append(youTube);
           spotify.attr("src", atmosMusicSpotify);
-          $('#spotify-widget').append(spotify);
           $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
           
-          $('body').css({'background-image':'url(assets/images/cloudy.jpg)'});   //this needs fixing
+          $('body').css({'background-image':'url(assets/images/cloudy.jpg)'});
 
         } else if (weather === 731 || (weather >= 751 && weather <= 781) || (weather >= 900 && weather <= 902) || weather === 906 || (weather >= 957 && weather <= 962)) {
           console.log(weather);
           youTube.attr("src", extremeMusic);
-          $('#youtube-widget').append(youTube);
+          $('#youtube-widget')..append(youTube);
           spotify.attr("src", extremeMusicSpotify);
-          $('#spotify-widget').append(spotify);
           $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
-          
-          $('body').css({'background-image':'url(assets/images/thunder.jpg)'});   //this needs fixing
+          $('body').css({'background-image':'url(assets/images/thunder.jpg)'});
 
         } else if (weather >= 200 && weather <= 232) {
           console.log(weather);
           youTube.attr("src", stormMusic);
-          $('#youtube-widget').append(youTube);
           spotify.attr("src", stormMusicSpotify);
-          $('#spotify-widget').append(spotify);
           $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
-          
-          $('body').css({'background-image':'url(assets/images/thunder.jpg)'});   //this needs fixing
+          $('body').css({'background-image':'url(assets/images/thunder.jpg)'});
 
         }
+        $('#youtube-widget').empty().append(youTube);
+        $('#spotify-widget').empty().append(spotify);
       });
 
       service.getDistanceMatrix({

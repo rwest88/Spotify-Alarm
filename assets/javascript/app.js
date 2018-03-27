@@ -39,7 +39,7 @@ var alarmMinutes;
 var alarmAMPM;
 
 var intervalSeconds = setInterval(updateTime, 1000);
-var intervalTenMinutes = setInterval(updateWeather, 600000);
+var intervalTenMinutes = setInterval(updateWeather, 15000); //600000
 
 //...............................................................................
 // Functions to run at regular intervals
@@ -57,6 +57,9 @@ function updateTime() {
   if (timeHours > 18 && timeHours <= 24) {greeting = greetings[2]}
   if (timeHours >= 0 && timeHours < 4) {greeting = greetings[3]}
 
+  if (timeHours >= 20 || timeHours <= 7) {
+    $('body').css({'background-image':'url(assets/images/nighttime.jpg'});
+  }
   if (timeHours > 11) {
     AMorPM = "PM";
   }
@@ -80,7 +83,25 @@ function updateTime() {
 }
 
 function updateWeather() {
-  runAPIs();
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos = {
+        lat: Math.round(position.coords.latitude * 1000000) / 1000000,
+        lng: Math.round(position.coords.longitude * 1000000) / 1000000
+      };
+      var queryURL1 = "https://api.openweathermap.org/data/2.5/weather?lat=" + pos.lat + "&lon=" + pos.lng +"&units=imperial&APPID=a6bed6fbc83844c9e82000992fae233d";
+
+      $.ajax({
+        url: queryURL1,
+        method: "GET"
+      }).then(function(response) {
+        $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
+        $('#temp-input').html(Math.round(response.main.temp) + '&#8457');
+        $('#condition').text('Condition: ' + response.weather[0].description);
+        console.log(response.main.temp);
+      });
+    });
+  }
 }
 
 //...........................................................
@@ -140,9 +161,6 @@ function runAPIs() {
   var atmosMusicSpotify = "https://open.spotify.com/embed?uri=spotify:user:spotify:playlist:37i9dQZF1DX79Y9Kr2M2tM";
   var extremeMusic = "https://open.spotify.com/embed?uri=spotify:user:spotify:playlist:37i9dQZF1DWU6kYEHaDaGA";
   var stormMusicSpotify = "https://open.spotify.com/embed?uri=spotify:user:spotify:playlist:37i9dQZF1DX2pSTOxoPbx9";
-  var pos;
-  var queryURL1;
-  var queryURL2;
 
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
@@ -151,11 +169,12 @@ function runAPIs() {
         lng: Math.round(position.coords.longitude * 1000000) / 1000000
       };
       console.log(pos);
-      queryURL1 = "https://api.openweathermap.org/data/2.5/weather?lat=" + pos.lat + "&lon=" + pos.lng +"&APPID=a6bed6fbc83844c9e82000992fae233d";
+      queryURL1 = "https://api.openweathermap.org/data/2.5/weather?lat=" + pos.lat + "&lon=" + pos.lng +"&units=imperial&APPID=a6bed6fbc83844c9e82000992fae233d";
       console.log(queryURL1);
-      queryURL2 = "https://maps.googleapis.com/maps/api/directions/json?origin=Fredericksburg&destination=Richmond&key=AIzaSyB_bXSY_7Ssaeg_p4mCtDVFEAn8iCxk1bY";
-      var destinationA = 'Washington, D.C';
-      var service = new google.maps.DistanceMatrixService();
+      
+      // queryURL2 = "https://maps.googleapis.com/maps/api/directions/json?origin=Fredericksburg&destination=Richmond&key=AIzaSyB_bXSY_7Ssaeg_p4mCtDVFEAn8iCxk1bY";
+      // var destinationA = 'Washington, D.C';
+      // var service = new google.maps.DistanceMatrixService();
 
       $.ajax({
         url: queryURL1,
@@ -212,7 +231,6 @@ function runAPIs() {
         } else if (weather === 731 || (weather >= 751 && weather <= 781) || (weather >= 900 && weather <= 902) || weather === 906 || (weather >= 957 && weather <= 962)) {
           console.log(weather);
           youTube.attr("src", extremeMusic);
-          $('#youtube-widget')..append(youTube);
           spotify.attr("src", extremeMusicSpotify);
           $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
           $('body').css({'background-image':'url(assets/images/thunder.jpg)'});
@@ -264,6 +282,7 @@ function runAPIs() {
 
 updateTime();
 updateWeather();
+runAPIs();
 
 //..................................................................
 // Needs work:

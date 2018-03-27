@@ -1,12 +1,15 @@
 body {
-  /* background: url(../images/thunder.jpg) no-repeat; */
-  background-color: black;
   background-size: cover;
   background-position: center;
   font-family: 'Roboto', sans-serif;
   text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.8);
   color: #ffffff;
-  background-color: transparent;
+  background-color: black;
+}
+
+iframe {
+  z-index: 100;
+  display: inline;
 }
 
 .jumbotron {

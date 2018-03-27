@@ -38,6 +38,7 @@ var alarmHours;
 var alarmMinutes;
 var alarmAMPM;
 var timeHours;
+var hack = null; // for testing
 
 var intervalSeconds = setInterval(updateTime, 1000);
 var intervalTenMinutes = setInterval(updateWeather, 15000); //600000
@@ -61,20 +62,21 @@ function updateTime() {
   if (timeHours >= 20 || timeHours <= 7) {
     $('body').css({'background-image':'url(assets/images/nighttime.jpg'});
   }
+
   if (timeHours > 11) {
     AMorPM = "PM";
   }
   if (timeHours > 12) {
-    timeHours -= 12;
+    hoursConverted = timeHours -= 12;
   }
   if (timeHours == 0) {
-    timeHours = 12;
+    hoursConverted = 12;
   }
 
   $('#time').text(`${timeHours}:${timeMinutes} ${AMorPM}`);
   $('#greet').text(greeting);
 
-  if (alarmHours == timeHours && alarmMinutes == timeMinutes && alarmAMPM == AMorPM) {
+  if (alarmHours == hoursConverted && alarmMinutes == timeMinutes && alarmAMPM == AMorPM) {
     if (!playing) {
       autoplay = "?autoplay=1";
       playing = true;
@@ -91,7 +93,6 @@ function updateWeather() {
         lng: Math.round(position.coords.longitude * 1000000) / 1000000
       };
       var queryURL1 = "https://api.openweathermap.org/data/2.5/weather?lat=" + pos.lat + "&lon=" + pos.lng +"&units=imperial&APPID=a6bed6fbc83844c9e82000992fae233d";
-
       $.ajax({
         url: queryURL1,
         method: "GET"
@@ -110,7 +111,7 @@ function updateWeather() {
 //...........................................................
 
 database.ref().on('value', function(snapshot) {
-  $('.datetimepicker-input').attr('placeholder', snapshot.val());
+  $('.datetimepicker-input').val(snapshot.val());
 });
 
 //...........................................................
@@ -130,11 +131,11 @@ $('#alarm-form').on('submit', function(evt) {
   setTimeout(function() {$('#alarm-set-msg').removeClass('show')}, 3000);
   alarmTime = ($('.datetimepicker-input').val());
   if (alarmTime.charAt(1) == ":") {
-    var formattedAlarmTime = "0" + alarmTime;
+    alarmTime = "0" + alarmTime;
   }
-  alarmHours = formattedAlarmTime.slice(0, 2);
-  alarmMinutes = formattedAlarmTime.slice(3, 5);
-  alarmAMPM = formattedAlarmTime.slice(6, 8);
+  alarmHours = alarmTime.slice(0, 2);
+  alarmMinutes = alarmTime.slice(3, 5);
+  alarmAMPM = alarmTime.slice(6, 8);
   database.ref().set(alarmTime);
 });
 
@@ -176,6 +177,7 @@ function runAPIs() {
       // queryURL2 = "https://maps.googleapis.com/maps/api/directions/json?origin=Fredericksburg&destination=Richmond&key=AIzaSyB_bXSY_7Ssaeg_p4mCtDVFEAn8iCxk1bY";
       // var destinationA = 'Washington, D.C';
       // var service = new google.maps.DistanceMatrixService();
+      
 
       $.ajax({
         url: queryURL1,
@@ -183,6 +185,9 @@ function runAPIs() {
       }).then(function(response) {
         console.log(response);
         var weather = response.weather[0].id;
+        if (hack !== null) { // for testing
+          weather = hack;
+        }
         var youTube = $('<iframe width="300" height="100" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>');
         var spotify = $('<iframe width="300" height="100" frameborder="0" allowtransparency="true" allow="encrypted-media">');
         
@@ -255,35 +260,35 @@ function runAPIs() {
         $('#spotify-widget').empty().append(spotify);
       });
 
-      service.getDistanceMatrix({
-        origins: [{lat: pos.lat, lng: pos.lng}],
-        destinations: [destinationA],
-        travelMode: 'DRIVING'/*,
-        drivingOptions: {
-            departureTime: new Date(Date.now()),
-            trafficModel: 'pessimistic'
-        }*/
-      }, callback);
+      // service.getDistanceMatrix({
+      //   origins: [{lat: pos.lat, lng: pos.lng}],
+      //   destinations: [destinationA],
+      //   travelMode: 'DRIVING'/*,
+      //   drivingOptions: {
+      //       departureTime: new Date(Date.now()),
+      //       trafficModel: 'pessimistic'
+      //   }*/
+      // }, callback);
 
-      function callback(response, status) {
-        console.log(response);
-        if (status == 'OK') {
-          var origins = response.originAddresses;
-          var destinations = response.destinationAddresses;
+      // function callback(response, status) {
+      //   console.log(response);
+      //   if (status == 'OK') {
+      //     var origins = response.originAddresses;
+      //     var destinations = response.destinationAddresses;
 
-          for (var i = 0; i < origins.length; i++) {
-            var results = response.rows[i].elements;
-            console.log(results);
-            for (var j = 0; j < results.length; j++) {
-              var element = results[j];
-              var distance = element.distance.text;
-              var duration = element.duration.text;
-              var from = origins[i];
-              var to = destinations[j];
-            }
-          }
-        }
-      }
+      //     for (var i = 0; i < origins.length; i++) {
+      //       var results = response.rows[i].elements;
+      //       console.log(results);
+      //       for (var j = 0; j < results.length; j++) {
+      //         var element = results[j];
+      //         var distance = element.distance.text;
+      //         var duration = element.duration.text;
+      //         var from = origins[i];
+      //         var to = destinations[j];
+      //       }
+      //     }
+      //   }
+      // }
     });
   }
 }

@@ -170,7 +170,7 @@ function runAPIs() {
           $('#spotify-widget').append(spotify);
           $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
           
-          $(document).css('background-image', 'url(../images/rainy.jpg)');   //this needs fixing
+          $('body').css({'background-image':'url(assets/images/rainy.jpg)'});   //this needs fixing
 
         } else if (weather === 800 || weather === 801 || (weather >= 951 && weather <= 953)) {
           console.log(weather);
@@ -180,7 +180,7 @@ function runAPIs() {
           $('#spotify-widget').append(spotify);
           $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
           
-          $(document).css('background-image', 'url(../images/sunny.jpg)');   //this needs fixing
+          $('body').css({'background-image':'url(assets/images/sunny.jpg)'});   //this needs fixing
 
         } else if (weather >= 600 && weather <= 622) {
           console.log(weather);
@@ -190,7 +190,7 @@ function runAPIs() {
           $('#spotify-widget').append(spotify);
           $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
           
-          $(document).css('background-image', 'url(../images/snowy.jpg)');   //this needs fixing
+          $('body').css({'background-image':'url(assets/images/snowy.jpg)'});   //this needs fixing
 
         } else if (weather >= 300 && weather <= 321) {
           console.log(weather);
@@ -200,7 +200,7 @@ function runAPIs() {
           $('#spotify-widget').append(spotify);
           $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
           
-          $(document).css('background-image', 'url(../images/rainy.jpg)');   //this needs fixing
+          $('body').css({'background-image':'url(assets/images/rainy.jpg)'});   //this needs fixing
 
         } else if (weather >= 802 && weather <= 804) {
           console.log(weather);
@@ -210,7 +210,7 @@ function runAPIs() {
           $('#spotify-widget').append(spotify);
           $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
           
-          $(document).css('background-image', 'url(../images/cloudy.jpg)');   //this needs fixing
+          $('body').css({'background-image':'url(assets/images/cloudy.jpg)'});   //this needs fixing
 
         } else if ((weather >= 701 && weather <= 721) || weather === 741) {
           console.log(weather);
@@ -220,7 +220,7 @@ function runAPIs() {
           $('#spotify-widget').append(spotify);
           $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
           
-          $(document).css('background-image', 'url(../images/cloudy.jpg)');   //this needs fixing
+          $('body').css({'background-image':'url(assets/images/cloudy.jpg)'});   //this needs fixing
 
         } else if (weather === 731 || (weather >= 751 && weather <= 781) || (weather >= 900 && weather <= 902) || weather === 906 || (weather >= 957 && weather <= 962)) {
           console.log(weather);
@@ -230,7 +230,7 @@ function runAPIs() {
           $('#spotify-widget').append(spotify);
           $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
           
-          $(document).css('background-image', 'url(../images/thunder.jpg)');   //this needs fixing
+          $('body').css({'background-image':'url(assets/images/thunder.jpg)'});   //this needs fixing
 
         } else if (weather >= 200 && weather <= 232) {
           console.log(weather);
@@ -240,7 +240,7 @@ function runAPIs() {
           $('#spotify-widget').append(spotify);
           $('#weather-icon').attr('src', `http://openweathermap.org/img/w/${response.weather[0].icon}.png`);
           
-          $(document).css('background-image', 'url(../images/thunder.jpg)');   //this needs fixing
+          $('body').css({'background-image':'url(assets/images/thunder.jpg)'});   //this needs fixing
 
         }
       });
@@ -284,6 +284,8 @@ updateWeather();
 //..................................................................
 // Needs work:
 //
+// the app doesn't seem to work when deployed...!important
+//
 // background image should update (in function runAPIs()) **
 // black background (or something) at page load (because the APIs take time)
 // ^^ maybe we want to run just the necessary weather AJAX to speed that up
@@ -294,8 +296,10 @@ updateWeather();
 // feed address into Google distance matrix API **
 // do we want to use traffic-model: pessimistic?
 // favicon would be nice
-// 
-// 
+//
+// placeholder in Set Alarm field doesn't count as a value entered
+// youtube widget unpretty -- breaks some of the media sizes
+// app has a lot of vertical height... shrink background image for smaller media sizes?
 //..................................................................
 
 //..................................................................
